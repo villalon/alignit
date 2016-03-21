@@ -20,7 +20,7 @@
         if ($a->edit == 1){ 
         echo"
 		<pre> 
-		<form method ='post' action='ITCreation.php'> 
+		<form method ='post' action='itcreation.php'> 
 		Name:			<input type='text' name='name'>
 		Budget:			<input type='number' name='budg'>
 		Headcount:		<input type='number' name='head'>

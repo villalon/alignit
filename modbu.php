@@ -17,7 +17,7 @@
 	    	echo "You can't be here";
 	    }
 	else{
-		echo "<form action = UpdateBU.php method='POST'>";
+		echo "<form action = updatebu.php method='POST'>";
 		$b->preupdatear();
 
 		echo"Name     : <input type='text' name=name value=".$b->name."><br>";

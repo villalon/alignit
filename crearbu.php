@@ -19,7 +19,7 @@
 			if ($a->edbu == 1){
 	echo"
 	<pre><br>
-		<form method ='post' action='BUCreation.php'> 
+		<form method ='post' action='bucreation.php'> 
 			Name:          <input id='name' type='text' name='name'><br><br>
 			<input type='submit' value='Add Business Objectives'></br>
 			<a href = 'menuuser.php' > Go Back</a>
