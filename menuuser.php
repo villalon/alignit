@@ -32,10 +32,10 @@ saca esta etiqueta style y su contenido para verla ordenada de otra manera, aunq
 	
 	<?php 
 	if($a->edit == 1){
-		echo "<a href = 'Crearit.php'>Create a IT Assets</a><br>";
+		echo "<a href = 'crearit.php'>Create a IT Assets</a><br>";
 	}
 	?>
-	<br><a href = 'GranIT.php'><input type='submit' value=' See It Assets'></a>
+	<br><a href = 'granit.php'><input type='submit' value=' See It Assets'></a>
 
 </div><div class="col-md-2"></div><div class="col-md-4" class='centraTabla'>
 
@@ -44,10 +44,10 @@ saca esta etiqueta style y su contenido para verla ordenada de otra manera, aunq
 	
 	<?php 
 	if($a->edbu == 1){
-		echo "<a href = 'Crearbu.php'>Create a Business Objectives</a><br>";
+		echo "<a href = 'crearbu.php'>Create a Business Objectives</a><br>";
 	}
 	?>
-	<br><a href = 'GranBU.php'><input type='submit' value=' See Business Objectives'> </a>
+	<br><a href = 'granbu.php'><input type='submit' value=' See Business Objectives'> </a>
 
 
 </div><div class="col-md-1"></div>

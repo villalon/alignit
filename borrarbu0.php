@@ -17,7 +17,7 @@
     echo "<br>";
     echo "<a href='borrarbu.php?id=$id'>Yes</a>";
     echo"<br>";
-    echo "<a href='granBU.php'>No</a>";
+    echo "<a href='granbu.php'>No</a>";
     ?>
 </body>
 </html>
