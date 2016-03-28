@@ -15,6 +15,6 @@
 	    ?>
 		
 
-<a href = 'menuuser.php'>Go Back</a>
+<a href = 'menuuser.php'>Volver</a>
 </pre>
 <?php include 'footer.php' ?>

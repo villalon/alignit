@@ -25,7 +25,7 @@ $EXCELLENCE_DESC = array(
 class connection {
     public $conn;
     public function connect() {
-        $this->conn = mysqli_connect("localhost", "root", "", "project");
+        $this->conn = mysqli_connect("localhost", "alignit", "pepito.P0", "alignit");
         if (mysqli_connect_errno()) {
             echo "Error :" . mysqli_connect_error();
         }
@@ -391,7 +391,6 @@ class it_excellence extends connection {
         if ($col = mysqli_fetch_object($quer)) {
             echo $col->name;
         }
-        
         echo "";
         echo "<table border=1>";
         echo "<tr>";
@@ -399,13 +398,13 @@ class it_excellence extends connection {
         echo "</tr>";
         
         $que = "SELECT *
-FROM project.operational_excellence_dimensions oed
+FROM operational_excellence_dimensions oed
 LEFT JOIN (
 SELECT ia.id as iaid,
 	ia.name as ianame,
     aae.operational_excellence_dimensions_id
-FROM project.it_assets ia 
-INNER JOIN project.alignment_assets_excellence aae ON (ia.id = aae.it_assets_id AND ia.id = $this->id AND ia.company_id = $cid->company_id)) AS T
+FROM it_assets ia 
+INNER JOIN alignment_assets_excellence aae ON (ia.id = aae.it_assets_id AND ia.id = $this->id AND ia.company_id = $cid->company_id)) AS T
 ON (T.operational_excellence_dimensions_id = oed.id)
         order by oed.id";
         $khe = mysqli_query($this->conn, $que);
@@ -419,7 +418,7 @@ ON (T.operational_excellence_dimensions_id = oed.id)
         echo "<input type='hidden' name='fkid' value='$this->id' >";
         echo "</tr>";
         echo "</table>";
-        echo "<br><input type='submit' value='Submit'></br>";
+        echo "<br><input type='submit' value='Submit'></br></form>";
     }
     public function mod($ed) {
         $this->connect();
@@ -557,13 +556,13 @@ class bu_excellence extends connection {
         echo "</tr>";
         
         $que = "SELECT *
-FROM project.operational_excellence_dimensions oed
+FROM operational_excellence_dimensions oed
 LEFT JOIN (
 SELECT ia.id as boid,
 	ia.name as boname,
     aae.operational_excellence_dimensions_id
-FROM project.business_objectives ia 
-INNER JOIN project.alignment_objectives_excellence aae ON (ia.id = aae.business_objectives_id AND ia.id = $this->id AND ia.company_id = $cid->company_id)) AS T
+FROM business_objectives ia 
+INNER JOIN alignment_objectives_excellence aae ON (ia.id = aae.business_objectives_id AND ia.id = $this->id AND ia.company_id = $cid->company_id)) AS T
 ON (T.operational_excellence_dimensions_id = oed.id)
         order by oed.id";
         $khe = mysqli_query($this->conn, $que);

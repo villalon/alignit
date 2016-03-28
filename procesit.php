@@ -9,7 +9,7 @@
 	    $c->id = $_REQUEST['id'];
 		$c->mod($_REQUEST['ed']);
 	
-		header("Location:GranIT.php");
+		header("Location:granit.php");
 		
 	    
 

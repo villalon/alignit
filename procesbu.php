@@ -9,7 +9,7 @@
 	    $c->id = $_REQUEST['id'];
 	    $c->mod($_REQUEST['ed']);
 	
-		header("Location:GranBU.php");
+		header("Location:granbu.php");
 		
 	    
 

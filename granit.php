@@ -33,7 +33,6 @@ saca esta etiqueta style y su contenido para verla ordenada de otra manera, aunq
 	    	die();
 	    }
     $fk = $_SESSION['company'];
-	$itassets = $c->getall($fk);
 		 echo "<br><br><br> 
 
 	<table id='2'>
