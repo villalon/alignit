@@ -2,61 +2,41 @@
         include 'class.php';
         $a = new usuario();
         $a->sessionstarter();
+        include 'header.php';
 	?>
-<!DOCTYPE html> 
-<html> 
-<head>
- <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-
-    <title>Menu User</title><br><br> 
-    <link type="text/css" rel="stylesheet" href="css.css">
-	 <style type="text/css">
-
-<!-- esto sirve para trasponer la tabla con la informacion
-saca esta etiqueta style y su contenido para verla ordenada de otra manera, aunque con esto se ve mejor -->
-	</style>
-	
-</head> 
-<body>  
 <div class="col-md-1"></div><div class="col-md-4" class='centraTabla'>
 	
-	<h3>It Assets</h3><br>
+	<h3>Activos TI</h3><br>
 	<table id='IT' class="table" > </table><br>
 	
 	<?php 
 	if($a->edit == 1){
-		echo "<a href = 'crearit.php'>Create a IT Assets</a><br>";
+		echo "<a href = 'crearit.php'>Agregar activo TI</a><br>";
 	}
 	?>
-	<br><a href = 'granit.php'><input type='submit' value=' See It Assets'></a>
+	<br><!--  <a href = 'granit.php'><input type='submit' value='See It Assets'></a> -->
 
 </div><div class="col-md-2"></div><div class="col-md-4" class='centraTabla'>
 
-	<h3>Business Objectives</h3><br>
+	<h3>Objetivos del negocio</h3><br>
 	<table id='BU' class="table" > </table><br>
 	
 	<?php 
 	if($a->edbu == 1){
-		echo "<a href = 'crearbu.php'>Create a Business Objectives</a><br>";
+		echo "<a href = 'crearbu.php'>Agregar objetivo del negocio</a><br>";
 	}
 	?>
-	<br><a href = 'granbu.php'><input type='submit' value=' See Business Objectives'> </a>
+	<br><!-- <a href = 'granbu.php'><input type='submit' value=' See Business Objectives'> </a> -->
 
 
 </div><div class="col-md-1"></div>
 
 	<div class="col-md-3"></div><div class="col-md-6" class='centraTabla'>
 	
-	<br><br><br><h3>It Assets/Business Objectives</h3>
+	<br><br><br><h3>Matriz de alineamiento</h3>
 	<br><table id='Gran' class="table"></table>
-	<br><br><br><a href = 'salir.php'><input type='submit' value=' Log Out'> </a>
+	<br><br><br><a href = 'salir.php'><input type='submit' value='Salir'> </a>
 	<br><br>
 	
 	</div><div class="col-md-3"></div>
@@ -70,15 +50,15 @@ $.ajax({
 	 dataType: 'json',
 	 success: function (response) {
 		var trHTML =
-		'<tr bgcolor ="#FFFFFF"><th>Name</th><th>Budget</th><th>Headcount</th><th>Update</th><th>Detail</th><th>Delete</th></tr>';
+		'<tr bgcolor ="#FFFFFF"><th>Nombre</th><th>Presupuesto</th><th>Personal</th><th colspan="3">Acciones</th></tr>';
 		for(var f=0;f<response.length;f++){
 			trHTML += '<tr bgcolor ="#FFFFFF" id="'+response[f]['id']+'">'+
 			'<td>'+response [f]['name']+'</td>'+
-			'<td>'+response [f]['budget']+'</td>'+
+			'<td>$'+response [f]['budget']+'</td>'+
 			'<td>'+response [f]['headcount']+'</td>'+
-			'<td><a href=modit.php?id='+response[f]['id']+'>Modify</a></td>'+
-			'<td><a href=detit.php?id='+response[f]['id']+'>Detail</a></td>'+
-			'<td><a class="delete-btn" > Delete </a></td>'+
+			'<td><a href=modit.php?id='+response[f]['id']+'>Modificar</a></td>'+
+			'<td><a href=detit.php?id='+response[f]['id']+'>Alinear</a></td>'+
+			'<td><a class="delete-btn" >Borrar</a></td>'+
 			'</tr>';
 		}
 		$('#IT').html(trHTML);
@@ -86,7 +66,7 @@ $.ajax({
  });
  
   $('table#IT').on('click', '.delete-btn', function(){
-	  if (confirm("Are you sure you want to delete this Asset?")){
+	  if (confirm("Are you sure you want to delete this asset?")){
 	  
         var id = $(this).parent().parent().attr('id');
     
@@ -110,13 +90,13 @@ $.ajax({
 	 dataType: 'json',
 	 success: function (response) {
 		var trHTML =
-		'<tr bgcolor ="#FFFFFF"><th>Name</th><th>Update</th><th>Detail</th><th>Delete</th></tr>';
+		'<tr bgcolor ="#FFFFFF"><th>Nombre</th><th colspan="3">Acciones</th></tr>';
 		for(var f=0;f<response.length;f++){
 			trHTML += '<tr bgcolor ="#FFFFFF" id="'+response[f]['id']+'">'+
 			'<td>'+response [f]['name']+'</td>'+
-			'<td><a href=modbu.php?id='+response[f]['id']+'>Modify</a></td>'+
-			'<td><a href=detbu.php?id='+response[f]['id']+'>Detail</a></td>'+
-			'<td><a class="delete-btn" > Delete </a></td>'+
+			'<td><a href=modbu.php?id='+response[f]['id']+'>Modificar</a></td>'+
+			'<td><a href=detbu.php?id='+response[f]['id']+'>Alinear</a></td>'+
+			'<td><a class="delete-btn" >Borrar</a></td>'+
 			'</tr>';
 		}
 		$('#BU').html(trHTML);

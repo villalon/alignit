@@ -1,16 +1,16 @@
 <?php include "header.php" ?>
-<h1> Align IT </h1>
-<h5>Gestión estratégica de Tecnología<h5>
+<h1>AlignIt</h1>
+<h4>Gestión estratégica de Tecnologías de la Información<h4>
 <br><br><br> 
         <form method ='post' action="validar.php"> 
             <pre>
-E-Mail:         <input type="text" name="mail">
+Correo electrónico <input type="text" name="mail">
 
-Password:     <input type="password" name="pass">
-				<br><br><input type="submit" value="Log In">
+Contraseña            <input type="password" name="pass">
+				<br><br><input type="submit" value="Entrar">
             </pre> 
 			</form> 
-			<a href = "Reg.php"> Create new user </a>
+			<a href = "reg.php">Registrarse</a>
 		
 </div>
 <?php include "footer.php" ?>

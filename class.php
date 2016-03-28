@@ -29,6 +29,7 @@ class connection {
         if (mysqli_connect_errno()) {
             echo "Error :" . mysqli_connect_error();
         }
+        mysqli_set_charset($this->conn,"utf8");
     }
 }
 class usuario extends connection {
@@ -95,24 +96,27 @@ class usuario extends connection {
             $this->itsalive = 1;
             $this->compid = $row->company_id;
         } else {
-            echo 'We are sorry, the email and password provided do not match. <br>';
+            echo 'El email y la clave no coinciden. <br>';
             $this->itsalive = 0;
         }
     }
     public function sessionstarter() {
         session_start();
         $this->connect();
-        $sql = "SELECT id, username, company_id FROM user WHERE id=".$_SESSION['id'];
+        $sql = "SELECT u.id, username, company_id, name
+                FROM user u INNER JOIN company c ON (c.id = u.company_id)
+                WHERE u.id=".$_SESSION['id'];
         $result = mysqli_query($this->conn, $sql);
         if ($result == FALSE || $result == "") {
             header("Location:login.php");
-            echo ("Por favor, inicie sesion");
+            echo ("Por favor, inicie sesión");
         } else {
-            $row = mysqli_fetch_array($result);
-            echo "<h2>Welcome, " . $row [1] . "</h2>";
-            $this->id = $row [0];
-            $this->user = $row [1];
-            $this->compid = $row [2];
+            $row = mysqli_fetch_object($result);
+            echo "<h2>" . $row->name . "</h2>";
+            echo "<h4>" . $row->username . "</h4>";
+            $this->id = $row->id;
+            $this->user = $row->username;
+            $this->compid = $row->company_id;
             $this->Who_am_I();
             mysqli_free_result($result);
         }
@@ -124,7 +128,7 @@ class usuario extends connection {
         $result = mysqli_query($this->conn, $sql);
         if ($result == FALSE || $result == "") {
             header("Location:login.php");
-            echo ("Por favor, inicie sesion");
+            echo ("Por favor, inicie sesión.");
         } else {
             $row = mysqli_fetch_array($result);
             
@@ -168,7 +172,7 @@ class IT_Assets extends connection {
         
         while ( $row = mysqli_fetch_assoc($khe) ) {
             echo "<tr>";
-            echo "<td>" . $row ['name'] . "</td><td> " . $row ['roundb'] . "</td><td> " . $row ['roundhead'] . "</td>";
+            echo "<td>" . $row ['name'] . "</td><td>" . $row ['roundb'] . "</td><td> " . $row ['roundhead'] . "</td>";
             echo "<td><a href='modit.php?id=" . $row ['id'] . "'>Modify Data </a>     </td>";
             echo "<td><a href='detit.php?id=" . $row ['id'] . "'>Detail </a>     </td>";
             echo "<td><a href='borrarit0.php?id=" . $row ['id'] . "'>Delete Data </a>     </td>";
@@ -214,7 +218,7 @@ class IT_Assets extends connection {
     }
     public function getall($fk) {
         $this->connect();
-        $select = mysqli_query($this->conn, "SELECT * FROM it_assets WHERE company_id = $fk");
+        $select = mysqli_query($this->conn, "SELECT id, name, ROUND(budget,0) AS budget, ROUND(headcount,0) AS headcount, company_id FROM it_assets WHERE company_id = $fk");
         While ( $r = mysqli_fetch_assoc($select) ) {
             $rows [] = $r;
         }
