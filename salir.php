@@ -1,5 +1,6 @@
 <?php
-	$_SESSION[id] = 0;
+	unset($_SESSION['id']);
+	unset($_SESSION['company']);
 	header("Location:login.php");
 	echo ("Ud a cerrado sesion");
 ?>

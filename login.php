@@ -1,12 +1,7 @@
-<!DOCTYPE html> 
-<html> 
-<head>
-    <title>Iniciar Sesión</title> 
-            <link type="text/css" rel="stylesheet" href="css.css">
+<?php include "header.php" ?>
 <h1> Align IT </h1>
-<h5>Gestión estrategia de tecnologia<h5>
-</head> 
-<body><br><br><br> 
+<h5>Gestión estratégica de Tecnología<h5>
+<br><br><br> 
         <form method ='post' action="validar.php"> 
             <pre>
 E-Mail:         <input type="text" name="mail">
@@ -18,5 +13,4 @@ Password:     <input type="password" name="pass">
 			<a href = "Reg.php"> Create new user </a>
 		
 </div>
-</body>  
-</html>
+<?php include "footer.php" ?>

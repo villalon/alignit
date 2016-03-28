@@ -7,21 +7,7 @@
 	    }
 	    $c = new bu_excellence();
 	    $c->id = $_REQUEST['id'];
-	    
-$i = 1;
-while (isset($arr[$i])){
-	
-if(isset($_REQUEST["ed'.$i.'"]) == 1 ){
-		$c->$arr[$i] = "X";
-		} 
-else { $c->$arr[$i] = "";
-		}
-		
-$i++;
-}
-		
-	
-	$c->mod();
+	    $c->mod($_REQUEST['ed']);
 	
 		header("Location:GranBU.php");
 		
