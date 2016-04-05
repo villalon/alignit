@@ -1,12 +1,5 @@
-
-<html> 
-<head>
-            <link type="text/css" rel="stylesheet" href="css.css">
-
-</head> 
-<body> 
- 
 <?php
+		include 'header.php';
 	    include 'class.php';
 	    $a = new usuario();
 	    $a->sessionstarter();
@@ -19,9 +12,10 @@
 	    ?>
 
 		
-<a href = 'menuuser.php'>Go to Menu</a>
+<a href = 'menuuser.php'>Volver</a>
 
-</body>  
-</html>
+<?php
+	include 'footer.php';
+?>
 
 

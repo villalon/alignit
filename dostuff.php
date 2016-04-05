@@ -1,10 +1,11 @@
 <?php
-//session_start();
+session_start();
 include 'class.php';
-//Lo qe se recive de la pag anterior
+//Lo qe se recibe de la pag anterior
 $user = $_POST['user'];
 $mail = $_POST['mail'];
 $pass = $_POST['pass'];
+$pass2 = $_POST['pass2'];
 $com1 = $_POST['com1']; //id de compañia qe eligio
 $com2 = $_POST['com2']; //nombre de compañia qe agrego
 $posi = $_POST['posi'];
@@ -15,39 +16,47 @@ $depa = $_POST['depa'];
 $a = new usuario();
 $a->connect();
 
-$z = 0;   // comprobar que no existe el email
-$con = mysqli_connect("localhost","root","","project");
-$cons = mysqli_query($con, "Select email from user");
-while($row = mysqli_fetch_object($cons))
-{
-	if($mail == $row->email){
-		$z = 1;
-	}
-}
-if($z == 1 ){
-	
-	echo ("Mail ya registrado, utilice uno diferente");
-	
+
+if ($a->isUserRegistered($mail)) {
+	$_SESSION['message'] = "Mail ya registrado, por favor utilice uno diferente";
+	$_SESSION['message_type']  = "error";
+	header("Location:reg.php");
 }
 else{
+	
 if($pass != "" && $user != "" && $mail != "" && $posi != "" && $depa != ""){
+
+
+	if($pass != $pass2) {
+		$_SESSION['message'] = "Contraseñas no coinciden.";
+		$_SESSION['message_type']  = "error";
+		header("Location:reg.php");
+	}
+
 	$a->user = $user;
 	$a->mail = $mail;
 	$a->pass = $pass;
 	$a->posi = $posi;
 	$a->depa = $depa;
 	$b = new company();
-	if ($com1 != ''){
+	if ($com1 != 0){
 		$a->compid = $com1;
 		$b->porsiacaso = 1;
 	}
-	elseif ($com1 == '' && $com2 != ""){
+	elseif ($com1 == 0 && $com2 != ""){
 		//$b = new company();
 		$b->name = $com2;
 		$b->crearco();
 		$a->compid = $b->id;
 		$b->porsiacaso = 1;
 	}
+	else {
+		$_SESSION['message'] = "Error en la selección de empresa";
+		$_SESSION['message_type']  = "error";
+		header("Location:reg.php");
+
+	}
+	
 	if ($b->porsiacaso == 1){
 		if (isset($_POST['edit'])){
 			$a->edit = 1;
@@ -63,35 +72,46 @@ if($pass != "" && $user != "" && $mail != "" && $posi != "" && $depa != ""){
 		}
 		$a->Create_User($a->compid);
 		if ($a->itsalive == 1){
+			$_SESSION['message'] = "Usuario registrado satisfactoriamente.";
+			$_SESSION['message_type']  = "success";
 			header("Location:login.php");
-			echo ("Se ha creado exitosamente");
 		}
 		else{
-			header("Location:Reg.php");
-			echo("Something went wrong");
+			$_SESSION['message'] = "Ha ocurrido un error en el registro. Por favor intente más tarde";
+			$_SESSION['message_type']  = "error";
+			header("Location:reg.php");
 		}
 	}
 }
-elseif($user == ""){
-	echo ("What's your name?");
-}
-elseif($mail==""){
-	echo ("Enter a Mail");
-}
-elseif ($pass=="")
+else
 {
-	echo("Chose a Password");
-//	echo "PORFAVOR LLENE TODOS LOS CAMPOS OBLIGATORIOS";
+	$_SESSION['message'] = "Por favor rellene todos los campos";
+	$_SESSION['message_type']  = "error";
+	header("Location:reg.php");
+
+	// if($user == ""){
+
+	// 	$_SESSION['message'] = "What's your name?");
+	// }
+	// if($mail==""){
+	// 	echo ("Enter a Mail");
+	// }
+	// if ($pass=="")
+	// {
+	// 	echo("Chose a Password");
+	// //	echo "PORFAVOR LLENE TODOS LOS CAMPOS OBLIGATORIOS";
+	// }
+	// if($com1 == '' && $com2 == ""){
+	// 	echo ("In what company works?");
+	// }
+	// if($posi==""){
+	// 	echo ("Enter a valid Position");
+	// }
+	// if($depa == ""){
+	// 	echo ("Enter a valid Departament");
+	// }
 }
-elseif($com1 == '' && $com2 == ""){
-	echo ("In what company works?");
 }
-elseif($posi==""){
-	echo ("Enter a valid Position");
-}
-elseif($depa == ""){
-	echo ("Enter a valid Departament");
-}}
 ?>
  <link type="text/css" rel="stylesheet" href="css.css">
  <br>

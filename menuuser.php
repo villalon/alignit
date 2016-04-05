@@ -1,47 +1,63 @@
 <?php
+		include 'header.php'; 
         include 'class.php';
         $a = new usuario();
-        $a->sessionstarter();
-        include 'header.php';
+        $a->sessionstarter(); //la sesion se inicia después de enviar el header html?
+        
 	?>
-
-<div class="col-md-1"></div><div class="col-md-4" class='centraTabla'>
+<div class="row">
+<div class="col-md-5">
 	
-	<h3>Activos TI</h3><br>
-	<table id='IT' class="table" > </table><br>
-	
+	<h3>Activos TI 
 	<?php 
 	if($a->edit == 1){
-		echo "<a href = 'crearit.php'>Agregar activo TI</a><br>";
+		echo "<a href = 'crearit.php' class='btn btn-sm btn-primary'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span></a><br>";
 	}
-	?>
-	<br><!--  <a href = 'granit.php'><input type='submit' value='See It Assets'></a> -->
-
-</div><div class="col-md-2"></div><div class="col-md-4" class='centraTabla'>
-
-	<h3>Objetivos del negocio</h3><br>
-	<table id='BU' class="table" > </table><br>
+	?></h3>
+	<table id='IT' class="table table-striped" > </table>
 	
+	
+	<!--  <a href = 'granit.php'><input type='submit' value='See It Assets'></a> -->
+
+</div>
+<div class="col-md-1"></div>
+
+<div class="col-md-5" >
+
+	<h3>Objetivos del negocio
 	<?php 
 	if($a->edbu == 1){
-		echo "<a href = 'crearbu.php'>Agregar objetivo del negocio</a><br>";
+		echo "<a href = 'crearbu.php' class='btn btn-sm btn-primary'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span></a><br>";
 	}
 	?>
-	<br><!-- <a href = 'granbu.php'><input type='submit' value=' See Business Objectives'> </a> -->
-
-
-</div><div class="col-md-1"></div>
-
-	<div class="col-md-3"></div><div class="col-md-6" class='centraTabla'>
+	</h3>
+	<table id='BU' class="table  table-striped" > </table><br>
 	
-	<br><br><br><h3>Matriz de alineamiento</h3>
-	<br><table id='Gran' class="table"></table>
-	<br><br><br><a href = 'salir.php'><input type='submit' value='Salir'> </a>
-	<br><br>
 	
-	</div><div class="col-md-3"></div>
+	<!-- <a href = 'granbu.php'><input type='submit' value=' See Business Objectives'> </a> -->
 
-<script language="javascript" type="text/javascript" src ="jquery-2.1.4.min.js"></script>
+
+</div>
+<div class="col-md-1"></div>
+
+</div>
+<div class="row">
+
+	
+
+	<!-- <div class="col-md-3"></div> -->
+	<div class="col-md-12">
+	<div class="page-header">
+		<h3>Matriz de alineamiento</h3>
+	</div>
+	
+	<table id='Gran' class="table table-striped"></table>
+
+	
+	
+	</div>
+	<!-- <div class="col-md-3"></div> -->
+</div>
 <script type="text/javascript">
 
 $.ajax({
@@ -50,9 +66,9 @@ $.ajax({
 	 dataType: 'json',
 	 success: function (response) {
 		var trHTML =
-		'<tr bgcolor ="#FFFFFF"><th>Nombre</th><th>Presupuesto</th><th>Personal</th><th colspan="3">Acciones</th></tr>';
+		'<thead><tr><th>Nombre</th><th>Presupuesto</th><th>Personal</th><th colspan="3">Acciones</th></tr></thead>';
 		for(var f=0;f<response.length;f++){
-			trHTML += '<tr bgcolor ="#FFFFFF" id="'+response[f]['id']+'">'+
+			trHTML += '<tr id="'+response[f]['id']+'">'+
 			'<td>'+response [f]['name']+'</td>'+
 			'<td>$'+response [f]['budget']+'</td>'+
 			'<td>'+response [f]['headcount']+'</td>'+
@@ -90,9 +106,9 @@ $.ajax({
 	 dataType: 'json',
 	 success: function (response) {
 		var trHTML =
-		'<tr bgcolor ="#FFFFFF"><th>Nombre</th><th colspan="3">Acciones</th></tr>';
+		'<thead><tr><th>Nombre</th><th colspan="3">Acciones</th></tr></thead>';
 		for(var f=0;f<response.length;f++){
-			trHTML += '<tr bgcolor ="#FFFFFF" id="'+response[f]['id']+'">'+
+			trHTML += '<tr id="'+response[f]['id']+'">'+
 			'<td>'+response [f]['name']+'</td>'+
 			'<td><a href=modbu.php?id='+response[f]['id']+'>Modificar</a></td>'+
 			'<td><a href=detbu.php?id='+response[f]['id']+'>Alinear</a></td>'+
@@ -129,12 +145,12 @@ $.ajax({
 		 dataType: 'json',
 		 success: function (response) {
 			var trHTML =
-			'<tr bgcolor ="#FFFFFF"><td></td>';
+			'<thead><tr><td></td>';
 			for(var f=0;f<response.length;f++){
 				trHTML += '<th>'+response[f]['name']+'</th>';
 			}
 			
-			trHTML += '</tr>';
+			trHTML += '</tr></thead>';
 			  $.ajax({
 					 type: 'POST',
 					 url: 'ajaxmenu2.php',
@@ -148,10 +164,10 @@ $.ajax({
 								 var l=0;
 								 for(var k=0;k<responses.length;k++){
 									 if( k%2==0){
-											trHTML +='<tr bgcolor ="#CBD8F5"><th>'+responses[k]['name']+'</th>';
+											trHTML +='<tr><th>'+responses[k]['name']+'</th>';
 											}
 										else {
-											trHTML +='<tr bgcolor ="#FFFFFF"><th>'+responses[k]['name']+'</th>';
+											trHTML +='<tr><th>'+responses[k]['name']+'</th>';
 											}
 					
 										for(var m=0;m<f;m++){
@@ -169,5 +185,6 @@ $.ajax({
  
  
 </script>
-</body>  
-</html>
+<?php
+include 'footer.php'; 
+?>

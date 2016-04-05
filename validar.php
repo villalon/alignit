@@ -14,13 +14,15 @@ if($mail != "" && $pass != ""){
                 header("Location: menuuser.php");
             }
             else{
-                echo 'Invalid Password';
-				echo "<br><a href = 'login.php'>Go to Login</a>";
+                $_SESSION['message'] = "Usuario o contraseña inválida";
+                $_SESSION['message_type'] = "error"; //error, success o info
+                header("Location: login.php");
             }
         }
         }
 else{
-    echo 'Fill all the fields';
-	echo "<br><a href = 'login.php'>Go to Login</a>";
+    $_SESSION['message'] = "Usuario o contraseña inválida";
+    $_SESSION['message_type'] = "error"; //error, success o info
+    header("Location: login.php");
 }
 ?>
