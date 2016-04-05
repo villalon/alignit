@@ -1,4 +1,6 @@
 <?php
+include "app-config.php";
+
 $EXCELLENCE_NEMO = array(
     'manage_service_quality',
     'realize_scale_economies',
@@ -25,7 +27,7 @@ $EXCELLENCE_DESC = array(
 class connection {
     public $conn;
     public function connect() {
-        $this->conn = mysqli_connect("localhost", "alignit", "pepito.P0", "alignit");
+        $this->conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
         if (mysqli_connect_errno()) {
             echo "Error :" . mysqli_connect_error();
         }
@@ -101,7 +103,11 @@ class usuario extends connection {
         }
     }
     public function sessionstarter() {
-        session_start();
+
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
         $this->connect();
         $sql = "SELECT u.id, username, company_id, name
                 FROM user u INNER JOIN company c ON (c.id = u.company_id)
@@ -112,8 +118,8 @@ class usuario extends connection {
             echo ("Por favor, inicie sesión");
         } else {
             $row = mysqli_fetch_object($result);
-            echo "<h2>" . $row->name . "</h2>";
-            echo "<h4>" . $row->username . "</h4>";
+            echo "<h2>" . $row->name . "</h2>";//Esto debe ir aqui?
+            echo "<h4>" . $row->username . "</h4>"; 
             $this->id = $row->id;
             $this->user = $row->username;
             $this->compid = $row->company_id;
@@ -121,7 +127,7 @@ class usuario extends connection {
             mysqli_free_result($result);
         }
     }
-    public function sessionstarter1() {
+    public function sessionstarter1() { //otra?
         session_start();
         $this->connect();
         $sql = "SELECT id, username, company_id FROM user WHERE id=".$_SESSION['id'];
@@ -137,6 +143,19 @@ class usuario extends connection {
             $this->compid = $row [2];
             $this->Who_am_I();
             mysqli_free_result($result);
+        }
+    }
+    function isUserRegistered($email) {
+        session_start();
+        $this->connect();
+        $query1 = "SELECT id FROM user WHERE email = '$email'";
+        $result = mysqli_query($this->conn, $query1);
+        if ($row = mysqli_fetch_object($result)) {
+            return TRUE;
+        } 
+
+        else {
+            return FALSE;
         }
     }
 }
@@ -379,6 +398,7 @@ class it_excellence extends connection {
     public $arre;
     public $a = array();
     public function check() {
+        //Aquí no debería haber html!!
         $this->connect();
         $this->id = $_REQUEST ['id'];
         
@@ -388,14 +408,17 @@ class it_excellence extends connection {
         
         $fast = "SELECT name from it_assets WHERE id = $this->id";
         $quer = mysqli_query($this->conn, $fast);
+        
         if ($col = mysqli_fetch_object($quer)) {
-            echo $col->name;
+            
+            echo "<div class='page-header'>";
+            echo "<h3>{$col->name}</h3>";
+            echo "</div>";
         }
-        echo "";
-        echo "<table border=1>";
-        echo "<tr>";
+        echo "<table class='table table-striped'>";
+        echo "<thead><tr>";
         echo "<th>Operational Excellence</th><th>Check</th>";
-        echo "</tr>";
+        echo "</tr></thead>";
         
         $que = "SELECT *
 FROM operational_excellence_dimensions oed
@@ -418,7 +441,10 @@ ON (T.operational_excellence_dimensions_id = oed.id)
         echo "<input type='hidden' name='fkid' value='$this->id' >";
         echo "</tr>";
         echo "</table>";
-        echo "<br><input type='submit' value='Submit'></br></form>";
+
+
+
+        echo "<br><input class='btn btn-success' type='submit' value='Actualizar'> </form>";
     }
     public function mod($ed) {
         $this->connect();
@@ -456,7 +482,7 @@ ON (T.operational_excellence_dimensions_id = oed.id)
                 $i = 1;
                 while ( isset($arr [$i]) ) {
                     if ($fila->operational_excellence_dimensions_id == $i) {
-                        $this->$arr [$i] = "X";
+                        $this->$arr [$i] = "X"; //deberia entregar true-false
                     }
                     $i ++;
                 }
@@ -546,14 +572,17 @@ class bu_excellence extends connection {
         $fast = "SELECT name from business_objectives WHERE id = $this->id";
         $quer = mysqli_query($this->conn, $fast);
         if ($col = mysqli_fetch_object($quer)) {
-            echo $col->name;
+            echo "<div class='page-header'>";
+            echo "<h3>{$col->name}</h3>";
+            echo "</div>";
         }
+
         
         echo "";
-        echo "<table border=1>";
-        echo "<tr>";
+        echo "<table class='table table-striped'>";
+        echo "<thead><tr>";
         echo "<th>Operational Excellence</th><th>Check</th>";
-        echo "</tr>";
+        echo "</tr></thead>";
         
         $que = "SELECT *
 FROM operational_excellence_dimensions oed
@@ -576,7 +605,7 @@ ON (T.operational_excellence_dimensions_id = oed.id)
         echo "<input type='hidden' name='fkid' value='$this->id' >";
         echo "</tr>";
         echo "</table>";
-        echo "<br><input type='submit' value='Submit'></br>";
+        echo "<br><input type='submit' class='btn btn-success' value='Actualizar'> ";
     }
     public function mod($ed) {
         $this->connect();

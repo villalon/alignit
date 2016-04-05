@@ -1,3 +1,6 @@
+<?php 
+header("Location:menuuser.php");
+?>
 <html>
 <head>
 </head>

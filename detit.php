@@ -1,6 +1,4 @@
-<?php include 'header.php' ?>
-<pre>
-<?php
+<?php include 'header.php';
 	    include 'class.php';
 	    $a = new usuario();
 	    $a->sessionstarter();
@@ -16,5 +14,4 @@
 		
 
 <a href = 'menuuser.php'>Volver</a>
-</pre>
 <?php include 'footer.php' ?>

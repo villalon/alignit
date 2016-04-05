@@ -7,11 +7,15 @@
     $b->name = $_POST['name'];
     $b->editar();
     if ($b->helpme == 1){
-    	header("Location: menuuser.php");
-    	echo "Actualizacion exitosa";
+        $_SESSION['message'] = "Actualización realizada correctamente.";
+        $_SESSION['message_type'] = "success"; //error, success o info
+        header("Location: menuuser.php");
+
     }
     else{
     	//header("Location: ModifIT.php");
-    	echo "Algo salio muy mal....";
+        $_SESSION['message'] = "Ha ocurrido un error al actualizar.";
+        $_SESSION['message_type'] = "error"; //error, success o info
+        header("Location: menuuser.php");
     }
     ?>
