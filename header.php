@@ -26,7 +26,7 @@
 <style type="text/css">
 
 	.navbar-brand {
-	background-image: url('../../template/logo-uai.png');
+	background-image: url('template/logo-uai.png');
 	padding-left: 180px;
     background-size: 179px 50px;
     background-repeat: no-repeat;
