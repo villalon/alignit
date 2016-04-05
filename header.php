@@ -2,7 +2,7 @@
 <!DOCTYPE html> 
 <html> 
 <head>
-
+<meta charset="UTF-8">
 <?php
 	if (empty($pagetitle)) {
 		$pagetitle = "AlignIT";
