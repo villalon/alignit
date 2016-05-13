@@ -14,7 +14,7 @@ $result = mysqli_query($a->conn,$sql);
 				<h2>Datos personales</h2>
 
 		<div class='form-group'>
-			<label for='user'>Nombre de usuario</label>
+			<label for='user'>Nombre</label>
 			<input type="text" name="user" class='form-control' id='user'>
 		</div>
 		<div class='form-group'>
@@ -63,13 +63,13 @@ $result = mysqli_query($a->conn,$sql);
 	<h2>Facultades del cargo</h2>
 	<div class="checkbox">
 		<label>
-		<input type="checkbox" name="edit"> ¿Puede administrar los Activos TI?
+		<input type="checkbox" name="edit"> ¿Sabe los Activos TI de la empresa?
 		</label>
 
 	</div>
 	<div class="checkbox">
 		<label>
-		<input type="checkbox" name="edbu"> ¿Puede administrar los Objetivos del Negocio?
+		<input type="checkbox" name="edbu"> ¿Conoce los Objetivos del Negocio?
 		</label>
 
 	</div>
