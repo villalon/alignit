@@ -1,7 +1,3 @@
-<html>
-
-<head>
-      <link type="text/css" rel="stylesheet" href="css.css">
 <?php
 	include 'class.php';
 	$a = new usuario();
@@ -12,18 +8,16 @@
 	$b->head = $_POST['head'];
 	$b->insertit($a->compid);
 	if ($b->help == 1){
-		echo "It has been successfully inserted";
+
+		$_SESSION['message'] = "Activo TI agregado satisfactoriamente";
+        $_SESSION['message_type'] = "success"; //error, success o info
 		
-header("Location:menuuser.php");
+		header("Location:menuuser.php");
 	}
 	else {
-		echo "Somethink went wrong, try again";
+		$_SESSION['message'] = "Ha ocurrido un error al agregar un activo TI";
+        $_SESSION['message_type'] = "error"; //error, success o info
+        header("Location:menuuser.php");
 	}
-	echo"<br><br>";
-	echo"<a href = 'menuuser.php'><input type='submit' value='Back to Menu'></a>";
-	echo"<br>";
-	echo"<br>";
-	echo"<br>";
-	echo"<br>";
+
 ?>
-</html>

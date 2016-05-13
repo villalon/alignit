@@ -30,6 +30,7 @@ class connection {
         $this->conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
         if (mysqli_connect_errno()) {
             echo "Error :" . mysqli_connect_error();
+            die();
         }
         mysqli_set_charset($this->conn,"utf8");
     }
@@ -98,7 +99,7 @@ class usuario extends connection {
             $this->itsalive = 1;
             $this->compid = $row->company_id;
         } else {
-            echo 'El email y la clave no coinciden. <br>';
+            //echo 'El email y la clave no coinciden. <br>';
             $this->itsalive = 0;
         }
     }
@@ -115,11 +116,12 @@ class usuario extends connection {
         $result = mysqli_query($this->conn, $sql);
         if ($result == FALSE || $result == "") {
             header("Location:login.php");
-            echo ("Por favor, inicie sesión");
+            //echo ("Por favor, inicie sesión");
         } else {
             $row = mysqli_fetch_object($result);
-            echo "<h2>" . $row->name . "</h2>";//Esto debe ir aqui?
-            echo "<h4>" . $row->username . "</h4>"; 
+            $_SESSION['name'] = $row->name;
+            $_SESSION['username'] = $row->username;
+
             $this->id = $row->id;
             $this->user = $row->username;
             $this->compid = $row->company_id;
@@ -134,7 +136,7 @@ class usuario extends connection {
         $result = mysqli_query($this->conn, $sql);
         if ($result == FALSE || $result == "") {
             header("Location:login.php");
-            echo ("Por favor, inicie sesión.");
+            //echo ("Por favor, inicie sesión.");
         } else {
             $row = mysqli_fetch_array($result);
             
