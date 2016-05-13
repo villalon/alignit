@@ -1,7 +1,3 @@
-<html>
-
-<head>
-      <link type="text/css" rel="stylesheet" href="css.css">
 <?php
 	include 'class.php';
 	$a = new usuario();
@@ -9,24 +5,25 @@
 	$a->sessionstarter();
 	$b->name = $_POST['name'];
 	if ($_POST['name'] == "")
-	{ echo "Enter a valid Name";
-}
+	{ 
+		$_SESSION['message'] = "Debe ingresar un nombre";
+        $_SESSION['message_type'] = "error"; //error, success o info
+		
+		header("Location:crearbu.php");
+	}
 else{
 	$b->insertbu($a->compid);
 	if ($b->helpme == 1){
-		echo "It has been successfully inserted";
+		$_SESSION['message'] = "Objetivo de negocio agregado satisfactoriamente";
+        $_SESSION['message_type'] = "success"; //error, success o info
 		
-header("Location:menuuser.php");
+		header("Location:menuuser.php");
+		
 	}
 	else {
-		echo "Somethink went wrong, try again";
+		$_SESSION['message'] = "Ha ocurrido un error al agregar el objetivo de negocio";
+        $_SESSION['message_type'] = "error"; //error, success o info
+        header("Location:menuuser.php");
 }}
-	echo"<br><br>";
-	echo"<a href = 'menuuser.php'><input type='submit' value='Back to Menu'></a>";
-	echo"<br>";
-	echo"<br>";
-	echo"<br>";
-echo"<br>";
-?>
 
-</html>
+?>

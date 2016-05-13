@@ -1,9 +1,9 @@
 <?php
-		include 'header.php'; 
         include 'class.php';
         $a = new usuario();
         $a->sessionstarter(); //la sesion se inicia después de enviar el header html?
-        
+        include 'header.php'; 
+
 	?>
 <div class="row">
 <div class="col-md-5">
